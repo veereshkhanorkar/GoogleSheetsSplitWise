@@ -270,7 +270,7 @@ class ExpenseSharing{
   }
 
   to_be_paid(who, whom){
-    if (who == whom){
+    if (who == whom || who == '' || whom == ''){
       return '';
     }
     var total_amount = 0.0;

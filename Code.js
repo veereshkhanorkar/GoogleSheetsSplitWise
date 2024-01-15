@@ -1,3 +1,7 @@
+function forceRefresh(e)
+{
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName("To Be Paid").getRange('A1').setValue(Math.random());
+}
 ////////////////////////////HEAP Q Implementation///////////////////////////////
 var default_cmplt = function(x, y) {
   return x < y;
@@ -239,9 +243,7 @@ class ExpenseSharing{
     if (this.last_modified_time == null || (current_time - this.last_modified_time > 3) || force){
       var values = rangeToDict(SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Expenses").getDataRange());
       this.purchase = sub_dict(values, "Item", "Paid By");
-      // this.purchase = rangeToDict(SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Expenses").getRange("A:D"));
       this.participants = sub_dict(values, "Paid By", "Per Share", true, true);
-      // this.participants = rangeToDict(SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Expenses").getRange("E:N"));
       this.buyers = Array.from(new Set(this.purchase['Paid By']))
       this.spenders = Array.from(Object.keys(this.participants))
       this.compute_item_total_share();
@@ -269,7 +271,7 @@ class ExpenseSharing{
     }
   }
 
-  to_be_paid(who, whom){
+  to_be_paid(who, whom, na){
     if (who == whom || who == '' || whom == ''){
       return '';
     }
@@ -289,10 +291,11 @@ class ExpenseSharing{
 }
 
 function init_data(){
-  if (excel == null){
-    excel = new ExpenseSharing();
-    excel.recompute()
+  if (excel != null){
+    delete excel;
   }
+  excel = new ExpenseSharing();
+  excel.recompute();
 }
 
 function owed_amount(who){
@@ -352,6 +355,4 @@ function simplified(){
     cell.getRow(),cell.getColumn(), obj.length, obj[0].length
   ).setValues(obj);
 }
-
-
 

@@ -14,11 +14,11 @@
       "menuName": "compute_data",
       "functionName": "compute_data"
     }, {
-      "menuName": "recompute",
-      "functionName": "recompute"
-    }, {
       "menuName": "simplified",
       "functionName": "simplified"
+    }, {
+      "menuName": "forceRefresh",
+      "functionName": "forceRefresh"
     }]
   }
 }

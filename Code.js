@@ -286,6 +286,9 @@ class ExpenseSharing{
       total_share = this.item_share[i]
       net_amount = net_amount + ((total_amount/total_share)*(this.participants[who][i]))
     }
+    if (net_amount == 0.0){
+      return '';
+    }
     return net_amount;
   }
 }
